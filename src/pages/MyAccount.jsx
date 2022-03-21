@@ -131,19 +131,19 @@ function MyAccount() {
               pb={4}
             >
               {" "}
-              <Text fontSize="3xl" color="white">
+              <Text fontSize="2xl" color="white">
                 Total value: ${(totalHolding + totalFunds).toLocaleString()}
               </Text>
-              <Text fontSize="2xl" alignSelf="flex-end">
+              <Text fontSize="1xl" alignSelf="flex-end">
                 Available funds: {totalFunds.toLocaleString()}
               </Text>
-              <Text fontSize="2xl" alignSelf="flex-end">
+              <Text fontSize="1xl" alignSelf="flex-end">
                 Hedge value: {totalHolding.toLocaleString()}
               </Text>
             </Box>
           </Center>
-          <ResponsiveContainer width="100%" height={500}>
-            <PieChart height={500}>
+          <ResponsiveContainer width="100%" height={350}>
+            <PieChart height={350}>
               <Pie
                 data={pieData}
                 dataKey="value"
@@ -155,6 +155,7 @@ function MyAccount() {
                   outerRadius,
                   value,
                   category,
+                  percent,
                 }) => {
                   const RADIAN = Math.PI / 180;
                   // eslint-disable-next-line
@@ -173,7 +174,8 @@ function MyAccount() {
                       textAnchor={x > cx ? "start" : "end"}
                       dominantBaseline="central"
                     >
-                      {category}, ${value}
+                      {(percent * 100).toFixed(0)}%, {category},{" "}
+                      {value.toLocaleString()}
                     </text>
                   );
                 }}
@@ -197,23 +199,26 @@ function MyAccount() {
             templateColumns={{
               base: "1fr 1fr",
               sm: "1fr 1fr 1fr",
-              md: "1fr 1fr 1fr 1fr",
+              md: "1fr 1fr 1fr",
+              lg: "1fr 1fr 1fr 1fr",
             }}
-            spacing={8}
+            spacing={4}
+            gap={4}
             py={2}
           >
             {productStore &&
               productStore.map((holding) =>
                 holding.value ? (
                   <Box
+                    maxW="350px"
                     display="flex"
                     flexDirection="column"
-                    gap={1}
                     border="1px white solid"
                     borderRadius="12px"
                     key={holding.id}
                     alignItems="flex-start"
                     p={2}
+                    fontSize={{ base: "smaller", sm: "lg", md: "lg" }}
                   >
                     <Link href="#" fontWeight="bold">
                       {holding.title}
@@ -221,9 +226,17 @@ function MyAccount() {
                     <Text>Amont: {holding.amount.toLocaleString()}</Text>
                     <Text>Value: {holding.value.toLocaleString()}</Text>
                     <Button
-                      colorScheme="pink"
-                      alignSelf="flex-end"
+                      colorScheme="green"
+                      width="100%"
+                      wordWrap="break-word"
+                      whiteSpace="normal"
                       size="sm"
+                      fontSize={{
+                        base: "smaller",
+                        sm: "sm",
+                        md: "sm",
+                        lg: "medium",
+                      }}
                       name={holding.title}
                       onClick={sellAll}
                     >
