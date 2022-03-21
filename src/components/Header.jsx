@@ -1,8 +1,7 @@
-import React, { useCallback, useEffect, useState } from "react";
-// import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import { loginState, userState } from "../stores/auth/atom";
 import { useRecoilState } from "recoil";
-import { GiCapybara, GiHedgehog } from "react-icons/gi";
+import { GiHedgehog } from "react-icons/gi";
 import {
   AiOutlineMenu as MenuIcon,
   AiOutlineClose as CloseIcon,
@@ -22,6 +21,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
+import { isMobile } from "react-device-detect";
 
 const Header = () => {
   const [logged, setLogged] = useRecoilState(loginState);
@@ -99,7 +99,8 @@ const Header = () => {
                 // href={`${logged ? "/myaccount" : "/signup"}`}
                 variant="ghost"
                 onClick={accOnOpen}
-                onMouseEnter={accOnOpen}
+                // onMouseEnter={accOnOpen}
+                onMouseEnter={isMobile ? () => false : accOnOpen}
                 onMouseLeave={accOnClose}
               >
                 account
@@ -108,7 +109,7 @@ const Header = () => {
               <MenuList
                 bg="black"
                 onClick={accOnOpen}
-                onMouseEnter={accOnOpen}
+                onMouseEnter={isMobile ? () => false : accOnOpen}
                 onMouseLeave={accOnClose}
               >
                 <MenuItem
@@ -118,7 +119,7 @@ const Header = () => {
                   href={`${logged ? "/myaccount" : "/login"}`}
                   _hover={{ bg: useColorModeValue("pink.700", "blue.700") }}
                 >{`${logged ? "My Account" : "Login"}`}</MenuItem>
-                {/* Hantera detta på något sätt... blir fel. Kanske nåt only show if?*/}
+                {/* Correct this for next assignement. Current: If sign out -> sign up (should be homepage)  */}
                 <MenuItem
                   fontSize="xl"
                   fontWeight="bold"
