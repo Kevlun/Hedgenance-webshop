@@ -62,9 +62,14 @@ function MyAccount() {
   const sellAll = (event) => {
     const name = event.target.name;
     const product = holdings.find((product) => product.title === name);
+    const { value, amount } = productStore.find(
+      (product) => product.title === name
+    );
     console.log(product.price);
+    console.log(value);
+    console.log(amount);
 
-    if (product.price <= 0) return;
+    if (value <= 0) return;
 
     console.log(product);
     console.log(product.price);
@@ -77,8 +82,8 @@ function MyAccount() {
       title: product.title,
       category: product.category,
       trade: "sell",
-      price: -product.price,
-      amount: -product.amount,
+      price: -value,
+      amount: -amount,
       date: date,
       id: Math.floor(Math.random() * 10000),
     };
@@ -86,7 +91,7 @@ function MyAccount() {
       return [...prevSell, newSell];
     });
     const increaseFunds = {
-      input: product.price,
+      input: value,
       date: date,
       id: Math.floor(Math.random() * 10000),
     };
@@ -236,6 +241,7 @@ function MyAccount() {
                   </Box>
                 ) : (
                   <></>
+                  // Correct this for KK4
                 )
               )}
           </SimpleGrid>

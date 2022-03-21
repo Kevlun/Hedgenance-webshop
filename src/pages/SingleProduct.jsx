@@ -86,7 +86,7 @@ function SingleProduct() {
     console.log(products.price);
 
     if (amount <= 0 || totalFunds < products.price * amount) return;
-    console.log(amount);
+
     // Alert funds not available
     const newBuy = {
       title: products.title,
@@ -94,7 +94,7 @@ function SingleProduct() {
       currentPrice: products.price,
       trade: "buy",
       price: products.price * amount,
-      amount: amount,
+      amount: +amount,
       date: date,
       id: Math.floor(Math.random() * 10000),
     };
@@ -109,8 +109,6 @@ function SingleProduct() {
     setFundings((prevFunds) => {
       return [...prevFunds, reduceFunds];
     });
-    console.log(fundings);
-    console.log(reduceFunds.input);
   };
 
   const sell = () => {
@@ -137,14 +135,13 @@ function SingleProduct() {
       return [...prevBuy, newSell];
     });
     const increaseFunds = {
-      input: products.price * amount,
+      input: products.price * +amount,
       date: date,
       id: Math.floor(Math.random() * 10000),
     };
     setFundings((prevFunds) => {
       return [...prevFunds, increaseFunds];
     });
-    console.log(fundings);
   };
 
   function handleChange(event) {
@@ -256,15 +253,8 @@ function SingleProduct() {
               Not sufficient amount or funds. Take me to fundings
             </Button>
           </Fade> */}
-          <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="flex-end"
-            gap={2}
-            my={0}
-          >
-            {/* <InfoButton alignSelf="center" /> */}
-          </Box>
+
+          {/* <InfoButton alignSelf="center" /> */}
         </Stack>
         <Container color="var(--chakra-colors-gray-300)">
           <Text fontSize="2xl">Recent Trades</Text>
@@ -277,6 +267,7 @@ function SingleProduct() {
             spacing={2}
             py={2}
             alignItems="flex-start"
+            justifyContent="center"
           >
             {holdings
               .slice(-5)
@@ -290,8 +281,9 @@ function SingleProduct() {
                   border="white 1px solid"
                   borderRadius="12px"
                   p={2}
-                  width="max-content"
-                  fontSize="1xl"
+                  minW="max-content"
+                  minH="100%"
+                  fontSize={{ base: "smaller", sm: "lg", md: "1xl" }}
                 >
                   <Text fontWeight="bold">{holding.trade}</Text>
                   <Text>{holding.title}</Text>

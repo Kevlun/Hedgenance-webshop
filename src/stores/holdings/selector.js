@@ -1,7 +1,5 @@
 import { selector } from "recoil";
 import { holdingState } from "./atom";
-// import { useRecoilValue, useRecoilState } from "recoil";
-// const holdingStore = useRecoilValue(holdingState);
 
 export const holdingStatus = selector({
   key: "holdingStatus",
@@ -70,6 +68,10 @@ export const productHoldingStatus = selector({
 
     const uniqueProduct = [
       ...new Set(holdingStore.map((holding) => holding.title)),
+    ];
+
+    const uniqueCategory = [
+      ...new Set(holdingStore.map((holding) => holding.category)),
     ];
 
     console.log(uniqueProduct);
