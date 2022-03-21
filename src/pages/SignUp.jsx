@@ -53,20 +53,23 @@ function SignUp() {
           <Box max-width="250px">
             <Stack>
               <Input
+                isRequired
                 ref={inputRef}
+                color="white"
+                name="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Hogname"
+                type="text"
+              ></Input>
+              <Input
+                name="email"
                 color="white"
                 placeholder="Email"
                 type="text"
               ></Input>
               <Input
-                color="white"
-                name="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Username"
-                type="text"
-              ></Input>
-              <Input
+                name="password"
                 color="white"
                 placeholder="Password"
                 type="password"

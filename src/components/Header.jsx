@@ -96,8 +96,9 @@ const Header = () => {
             <Menu isOpen={accIsOpen}>
               <MenuButton
                 as="a"
-                href={`${logged ? "/myaccount" : "/signup"}`}
+                // href={`${logged ? "/myaccount" : "/signup"}`}
                 variant="ghost"
+                onClick={accOnOpen}
                 onMouseEnter={accOnOpen}
                 onMouseLeave={accOnClose}
               >
@@ -106,6 +107,7 @@ const Header = () => {
               </MenuButton>
               <MenuList
                 bg="black"
+                onClick={accOnOpen}
                 onMouseEnter={accOnOpen}
                 onMouseLeave={accOnClose}
               >
