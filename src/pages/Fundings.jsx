@@ -63,7 +63,6 @@ function Fundings() {
       return [newFund, ...prevFunds];
     });
     setInput("");
-    console.log(fundings);
   };
 
   function handleField() {

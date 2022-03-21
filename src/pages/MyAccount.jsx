@@ -65,22 +65,13 @@ function MyAccount() {
     const { value, amount } = productStore.find(
       (product) => product.title === name
     );
-    console.log(product.price);
-    console.log(value);
-    console.log(amount);
 
     if (value <= 0) return;
-
-    console.log(product);
-    console.log(product.price);
-
-    console.log(name);
-    console.log(holdings);
-    console.log(fundings);
 
     const newSell = {
       title: product.title,
       category: product.category,
+      currentPrice: product.price,
       trade: "sell",
       price: -value,
       amount: -amount,

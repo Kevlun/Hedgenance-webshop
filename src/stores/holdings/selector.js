@@ -53,7 +53,6 @@ export const categoryHoldingStatus = selector({
         amount: totalAmountCategory,
         value: totalPriceCategory,
       });
-      console.log(categoryStore);
     }
     return {
       categoryStore,
@@ -69,12 +68,6 @@ export const productHoldingStatus = selector({
     const uniqueProduct = [
       ...new Set(holdingStore.map((holding) => holding.title)),
     ];
-
-    const uniqueCategory = [
-      ...new Set(holdingStore.map((holding) => holding.category)),
-    ];
-
-    console.log(uniqueProduct);
 
     let productTotal = [];
     let productStore = [];
