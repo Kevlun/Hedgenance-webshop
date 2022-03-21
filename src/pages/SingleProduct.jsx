@@ -181,7 +181,7 @@ function SingleProduct() {
 
           <Box display="flex">
             <Button
-              width="100%"
+              width="40%"
               rightIcon={<MdCall />}
               colorScheme="blue"
               variant="outline"
@@ -193,7 +193,7 @@ function SingleProduct() {
               Buy
             </Button>
             <Button
-              width="100%"
+              width="60%"
               rightIcon={<MdCall />}
               colorScheme="blue"
               variant="outline"
@@ -218,7 +218,7 @@ function SingleProduct() {
               }
               colorScheme="blue"
               variant="outline"
-              width="100%"
+              width="40%"
             >
               All products
             </Button>
@@ -230,7 +230,7 @@ function SingleProduct() {
               }
               colorScheme="blue"
               variant="outline"
-              width="100%"
+              width="60%"
             >
               My Account
             </Button>
