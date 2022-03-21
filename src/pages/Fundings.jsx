@@ -27,7 +27,6 @@ import React, { useState, useRef, useCallback, useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { fundingState } from "../stores/fundings/atom";
 import { fundingStatus } from "../stores/fundings/selector";
-import { MdBuild, MdCall } from "react-icons/md";
 import LocalNav from "../components/LocalNav";
 
 function Fundings() {
@@ -148,7 +147,7 @@ function Fundings() {
                   {totalFunds && totalFunds.toLocaleString()} USD
                 </Text>
                 <Table variant="simple" size="sm">
-                  {/* Todo: Dynamic sizing table */}
+                  {/* Todo: Dynamic sizing table  size={{ base: "sm", sm: "md", md: "md" }} */}
                   <Thead>
                     <Tr>
                       <Th>Funding</Th>

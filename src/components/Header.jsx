@@ -92,15 +92,20 @@ const Header = () => {
           <Link href="/">home</Link>
           <Link href="/products">hedgeproducts</Link>
 
-          <Box>
+          <Link href={`${logged ? "/myaccount" : "/signup"}`}>{`${
+            logged ? "account" : "sign up"
+          }`}</Link>
+          <Link
+            href={`${logged ? "/myaccount" : "/login"}`}
+            onClick={handleLogged}
+          >{`${logged ? "logout" : "login"}`}</Link>
+          {/* <Box>
             <Menu isOpen={accIsOpen}>
               <MenuButton
                 as="a"
-                // href={`${logged ? "/myaccount" : "/signup"}`}
+                href={`${logged ? "/myaccount" : "/signup"}`}
                 variant="ghost"
-                onClick={accOnOpen}
-                // onMouseEnter={accOnOpen}
-                // onMouseEnter={isMobile ? () => false : accOnOpen}
+                onMouseEnter={isMobile ? () => false : accOnOpen}
                 onMouseLeave={accOnClose}
               >
                 account
@@ -119,7 +124,6 @@ const Header = () => {
                   href={`${logged ? "/myaccount" : "/login"}`}
                   _hover={{ bg: useColorModeValue("pink.700", "blue.700") }}
                 >{`${logged ? "My Account" : "Login"}`}</MenuItem>
-                {/* Correct this for next assignement. Current: If sign out -> sign up (should be homepage)  */}
                 <MenuItem
                   fontSize="xl"
                   fontWeight="bold"
@@ -130,7 +134,7 @@ const Header = () => {
                 >{`${logged ? "Log out" : "Sign up"}`}</MenuItem>
               </MenuList>
             </Menu>
-          </Box>
+          </Box> */}
         </Stack>
       </Box>
     </Flex>

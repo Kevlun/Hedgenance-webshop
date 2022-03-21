@@ -72,6 +72,8 @@ export const productHoldingStatus = selector({
       ...new Set(holdingStore.map((holding) => holding.title)),
     ];
 
+    console.log(uniqueProduct);
+
     let productTotal = [];
     let productStore = [];
 

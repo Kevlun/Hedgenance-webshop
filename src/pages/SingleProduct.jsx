@@ -173,7 +173,7 @@ function SingleProduct() {
           </Text>
           <Text>{products.description}</Text>
           <Text>${products.price.toLocaleString()}</Text>
-          <Input type="range" onChange={handleChange} size="lg" />
+          {/* <Input type="range" onChange={handleChange} size="lg" /> */}
           <Input
             ref={inputRef}
             placeholder="amount"
@@ -181,18 +181,10 @@ function SingleProduct() {
             onChange={handleChange}
             size="lg"
           />
-          <Text fontSize="2xl" alignSelf="flex-start">
-            Total available funds: {totalFunds && totalFunds.toLocaleString()}
-          </Text>
-          <Text fontSize="2xl" alignSelf="flex-start">
-            Holdings {products.title}:{" "}
-            {holdingSingleProduct
-              ? holdingSingleProduct.amount.toLocaleString()
-              : 0}
-          </Text>
 
-          <Box display="flex" justifyContent="flex-end">
+          <Box display="flex">
             <Button
+              width="100%"
               rightIcon={<MdCall />}
               colorScheme="blue"
               variant="outline"
@@ -204,6 +196,7 @@ function SingleProduct() {
               Buy
             </Button>
             <Button
+              width="100%"
               rightIcon={<MdCall />}
               colorScheme="blue"
               variant="outline"
@@ -212,9 +205,43 @@ function SingleProduct() {
                 handleField();
               }}
             >
-              Sell
+              Sell (Available: {""}
+              {holdingSingleProduct
+                ? holdingSingleProduct.amount.toLocaleString()
+                : 0}{" "}
+              )
             </Button>
           </Box>
+          <Box display="flex">
+            <Button
+              as="a"
+              href="/products"
+              rightIcon={
+                <GiHedgehog size={30} color="var(--chakra-colors-pink-400)" />
+              }
+              colorScheme="blue"
+              variant="outline"
+              width="100%"
+            >
+              All products
+            </Button>
+            <Button
+              as="a"
+              href="/myaccount"
+              rightIcon={
+                <GiHedgehog size={30} color="var(--chakra-colors-green-300)" />
+              }
+              colorScheme="blue"
+              variant="outline"
+              width="100%"
+            >
+              My Account
+            </Button>
+          </Box>
+          <Text fontSize="2xl" alignSelf="flex-start">
+            Total available funds: {totalFunds && totalFunds.toLocaleString()}
+          </Text>
+
           {/* <Fade in={isOpen}>
             <Button
               as="a"
@@ -236,16 +263,7 @@ function SingleProduct() {
             gap={2}
             my={0}
           >
-            <Link href="/myaccount">
-              <Button
-                rightIcon={<GiHedgehog size={30} />}
-                colorScheme="blue"
-                variant="outline"
-              >
-                My Account
-              </Button>
-            </Link>
-            <InfoButton alignSelf="center" />
+            {/* <InfoButton alignSelf="center" /> */}
           </Box>
         </Stack>
         <Container color="var(--chakra-colors-gray-300)">

@@ -32,7 +32,7 @@ import AnimatedPage from "../components/AnimatedPage";
 import { useNavigate } from "react-router-dom";
 
 function ProductPage() {
-  // Varför ska dessa ens finnas i ett State? Behövs det?
+  // Varför ska dessa ens finnas i ett State?... -> KK4
   const cryptos = useRecoilValue(cryptoProductState);
   const metals = useRecoilValue(metalProductState);
   const energys = useRecoilValue(energyProductState);
@@ -232,11 +232,11 @@ function ProductPage() {
                     <ModalCloseButton />
                     <ModalBody>
                       <Text>
-                        Please log in or sign up to buy and sell. It only takes
-                        3 minutes to sign up. Let's hedge.
+                        Please Login or Sign up to invest. <br />
+                        It only takes 3 minutes to Sign up. Sign up now and get
+                        $1000 for trades. Let's hedge.
                       </Text>
                     </ModalBody>
-
                     <ModalFooter gap={1}>
                       <Link href="/login">
                         <Button colorScheme="green">Log in</Button>

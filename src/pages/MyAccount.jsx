@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { userState } from "../stores/auth/atom";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { holdingState } from "../stores/holdings/atom";
+import { fundingState } from "../stores/fundings/atom";
 import {
   holdingStatus,
   categoryHoldingStatus,
@@ -15,12 +16,12 @@ import {
   SimpleGrid,
   Center,
   Button,
+  Link,
   Stat,
   StatArrow,
   StatGroup,
   StatHelpText,
 } from "@chakra-ui/react";
-import { MdBuild } from "react-icons/md";
 import { GiHedgehog } from "react-icons/gi";
 import { fundingStatus } from "../stores/fundings/selector";
 
@@ -31,6 +32,7 @@ import { PieChart, Pie, Label, ResponsiveContainer } from "recharts";
 function MyAccount() {
   const user = useRecoilValue(userState);
   const [holdings, setHoldings] = useRecoilState(holdingState);
+  const [fundings, setFundings] = useRecoilState(fundingState);
   const { totalHolding } = useRecoilValue(holdingStatus);
   console.log(`User: ${user}`);
   console.log(holdings);
@@ -47,8 +49,50 @@ function MyAccount() {
     };
   });
 
-  const handleHoldings = () => {
-    setHoldings([]);
+  let date = new Date();
+  const yyyy = date.getFullYear();
+  const mm = String(date.getMonth() + 1).padStart(2, "0");
+  const dd = String(date.getDate()).padStart(2, "0");
+  const hour = String(date.getHours()).padStart(2, "0");
+  const min = String(date.getMinutes()).padStart(2, "0");
+  const sec = String(date.getSeconds()).padStart(2, "0");
+
+  date = `${yyyy}-${mm}-${dd} ${hour}:${min}:${sec}`;
+
+  const sellAll = (event) => {
+    const name = event.target.name;
+    const product = holdings.find((product) => product.title === name);
+    console.log(product.price);
+
+    if (product.price <= 0) return;
+
+    console.log(product);
+    console.log(product.price);
+
+    console.log(name);
+    console.log(holdings);
+    console.log(fundings);
+
+    const newSell = {
+      title: product.title,
+      category: product.category,
+      trade: "sell",
+      price: -product.price,
+      amount: -product.amount,
+      date: date,
+      id: Math.floor(Math.random() * 10000),
+    };
+    setHoldings((prevSell) => {
+      return [...prevSell, newSell];
+    });
+    const increaseFunds = {
+      input: product.price,
+      date: date,
+      id: Math.floor(Math.random() * 10000),
+    };
+    setFundings((prevFunds) => {
+      return [...prevFunds, increaseFunds];
+    });
   };
 
   return (
@@ -79,7 +123,7 @@ function MyAccount() {
               <StatHelpText fontSize="xl">
                 Period: 3m
                 <StatArrow type="increase" color="green" />
-                13.36%
+                13.37%
               </StatHelpText>
             </Stat>
           </StatGroup>
@@ -116,7 +160,6 @@ function MyAccount() {
                   value,
                   category,
                 }) => {
-                  console.log("handling label?");
                   const RADIAN = Math.PI / 180;
                   // eslint-disable-next-line
                   const radius = 25 + innerRadius + (outerRadius - innerRadius);
@@ -164,24 +207,37 @@ function MyAccount() {
             py={2}
           >
             {productStore &&
-              productStore.map((holding) => (
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  gap={1}
-                  border="1px white solid"
-                  borderRadius="12px"
-                  width="100%"
-                  key={holding.id}
-                  alignItems="flex-start"
-                  p={2}
-                >
-                  <Text fontSize="1xl" fontWeight="bold"></Text>
-                  <Text fontWeight="bold">{holding.title}</Text>
-                  <Text>Amont: {holding.amount.toLocaleString()}</Text>
-                  <Text>Value: {holding.value.toLocaleString()}</Text>
-                </Box>
-              ))}
+              productStore.map((holding) =>
+                holding.value ? (
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    gap={1}
+                    border="1px white solid"
+                    borderRadius="12px"
+                    key={holding.id}
+                    alignItems="flex-start"
+                    p={2}
+                  >
+                    <Link href="#" fontWeight="bold">
+                      {holding.title}
+                    </Link>
+                    <Text>Amont: {holding.amount.toLocaleString()}</Text>
+                    <Text>Value: {holding.value.toLocaleString()}</Text>
+                    <Button
+                      colorScheme="pink"
+                      alignSelf="flex-end"
+                      size="sm"
+                      name={holding.title}
+                      onClick={sellAll}
+                    >
+                      Sell All {holding.title}s
+                    </Button>
+                  </Box>
+                ) : (
+                  <></>
+                )
+              )}
           </SimpleGrid>
         </Container>
       </Center>

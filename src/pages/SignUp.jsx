@@ -13,11 +13,13 @@ import AnimatedPage from "../components/AnimatedPage";
 import { loginState, userState } from "../stores/auth/atom";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
+import { fundingState } from "../stores/fundings/atom";
 
 function SignUp() {
   const [logged, setLogged] = useRecoilState(loginState);
   const navigate = useNavigate();
   const [username, setUsername] = useRecoilState(userState);
+  const [fundings, setFundings] = useRecoilState(fundingState);
 
   const inputRef = useRef();
   useEffect(() => {
@@ -27,6 +29,24 @@ function SignUp() {
   const login = () => {
     navigate("/myaccount");
     setLogged(true);
+    let date = new Date();
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, "0");
+    const dd = String(date.getDate()).padStart(2, "0");
+    const hour = String(date.getHours()).padStart(2, "0");
+    const min = String(date.getMinutes()).padStart(2, "0");
+    const sec = String(date.getSeconds()).padStart(2, "0");
+
+    date = `${yyyy}-${mm}-${dd} ${hour}:${min}:${sec}`;
+
+    const newFund = {
+      input: 1000,
+      date: date,
+      id: Math.floor(Math.random() * 10000),
+    };
+    setFundings((prevFunds) => {
+      return [newFund, ...prevFunds];
+    });
 
     console.log(logged);
     console.log(username);
@@ -75,7 +95,7 @@ function SignUp() {
                 type="password"
               ></Input>
               <Button type="submit" onClick={login}>
-                Sign up
+                Sign up now and get $1000 =)
               </Button>
               <Progress value={20} size="xs" colorScheme="pink" />
             </Stack>
