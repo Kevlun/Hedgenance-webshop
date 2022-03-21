@@ -100,7 +100,7 @@ const Header = () => {
                 variant="ghost"
                 onClick={accOnOpen}
                 // onMouseEnter={accOnOpen}
-                onMouseEnter={isMobile ? () => false : accOnOpen}
+                // onMouseEnter={isMobile ? () => false : accOnOpen}
                 onMouseLeave={accOnClose}
               >
                 account
